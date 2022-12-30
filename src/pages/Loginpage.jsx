@@ -8,7 +8,7 @@ export const Loginpage = () => {
   
   const { onLogin } = useAuth();
 
-  const origin = location.state?.from?.pathname || "/";
+  const routeBefore = location.state?.from?.pathname || "/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +16,10 @@ export const Loginpage = () => {
     const form = e.target;
     const user = form.username.value;
 
-    onLogin(user, () => navigate(origin, {replace: true}))
+    onLogin(user, () => navigate({
+      pathname: routeBefore,
+      replace: true
+    }))
     
   };
 

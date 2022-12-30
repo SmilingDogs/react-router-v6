@@ -60,3 +60,10 @@ main a:hover {
   color: var(--color-active);
   cursor: default;
 }
+
+.add-post {
+  padding: 10px;
+  background-color: #313191;
+  color: white;
+  border-radius: 6px;
+}

@@ -26,7 +26,7 @@ export const Blogpage = () => {
   return (
     <div>
       <h1>Blog</h1>
-      <Link to={'/posts/new'}>Add new post</Link>
+      <Link to={'/posts/new'} className='add-post'>Add new post</Link>
       <ul>{postsList}</ul>
     </div>
   );

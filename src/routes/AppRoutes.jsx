@@ -10,6 +10,7 @@ import { NotfoundPage } from "../pages/NotfoundPage";
 import { Loginpage } from "../pages/Loginpage";
 import ProtectedRoute from "../hoc/ProtectedRoute";
 import AuthProvider from "../hoc/AuthProvider";
+import { AdminPage } from "../pages/Adminpage";
 
 export const AppRoutes = () => {
   return (
@@ -27,6 +28,14 @@ export const AppRoutes = () => {
               element={
                 <ProtectedRoute>
                   <CreatePostPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="admin"
+              element={
+                <ProtectedRoute>
+                  <AdminPage />
                 </ProtectedRoute>
               }
             />

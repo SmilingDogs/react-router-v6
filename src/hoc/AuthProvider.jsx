@@ -1,20 +1,33 @@
 import { useState, createContext } from "react";
-// import { fakeAuth } from "../utils/fakeAPI";
+import { useLocation, useNavigate } from "react-router-dom";
+import { fakeAuth } from "../utils/fakeAPI";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const onLogin = (credentials, cb) => {
-    setUser(credentials), cb();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const routeBefore = location.state?.from?.pathname || "/";
+
+  const onLogin = async (e) => {
+    e.preventDefault();
+    const token = await fakeAuth();
+    
+    setToken(token);
+
+    navigate(routeBefore);
   };
 
   const onLogout = (cb) => {
-    setUser(null), cb();
+    setToken(null);
+    navigate('/', {replace: true});
+    
   };
 
-  const value = { user, onLogin, onLogout};
+  const value = { token, onLogin, onLogout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

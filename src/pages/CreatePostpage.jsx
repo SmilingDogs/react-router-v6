@@ -2,13 +2,12 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export const CreatePostPage = () => {
-  const {onLogout, user} = useAuth();
-  const navigate = useNavigate();
-
+  const {onLogout, token} = useAuth();
+  
   return (
     <>
-    <h2>Create new post </h2>
-    {user && <button onClick={() => onLogout(() => navigate('/', {replace: true}))}>Log out</button>}
+    <h2>Create new post (Protected Route)</h2>
+    {token && <button onClick={onLogout}>Log out</button>}
     </>
   )
 }

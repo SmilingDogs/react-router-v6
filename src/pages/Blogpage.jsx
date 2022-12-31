@@ -7,9 +7,17 @@ export const Blogpage = () => {
   const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const postQuery = searchParams.get("post") || "";
+  const query = searchParams.get("post") || "";
 
-  const handleChange = (e) => setSearchParams({ post: e.target.value });
+  const handleSearch = (e) => {
+    const searchQuery = e.target.value;
+
+    if (searchQuery) {
+      setSearchParams({ post: searchQuery });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   const getPosts = async () => {
     const res = await fetch(POSTS_URL);
@@ -22,8 +30,7 @@ export const Blogpage = () => {
   }, []);
   //todo all actions are passed INSIDE a callback in useEffect
 
-  const postsList = posts
-    ?.filter((p) => p.title.includes(postQuery))
+  const postsList = posts?.filter((p) => p.title.includes(query))
     .map((p) => (
       <Link key={p.id} to={`/posts/${p.id}`}>
         <li>{p.title}</li>
@@ -34,7 +41,8 @@ export const Blogpage = () => {
     <div>
       <h1>Blog</h1>
       <label>
-        Type to search: <input type="text" value={postQuery} onChange={handleChange} />
+        Type to search:{" "}
+        <input type="text" value={query} onChange={handleSearch} />
       </label>
       <div className="input-container">
         <Link to={"/posts/new"} className="add-post">

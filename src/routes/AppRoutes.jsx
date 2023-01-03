@@ -6,7 +6,7 @@ import { Blogpage } from "../pages/Blogpage";
 import { SinglePostpage } from "../pages/SinglePostpage";
 import { EditPostPage } from "../pages/EditPostpage";
 import { CreatePostPage } from "../pages/CreatePostpage";
-import { NotfoundPage } from "../pages/NotfoundPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 import { Loginpage } from "../pages/Loginpage";
 import ProtectedRoute from "../hoc/ProtectedRoute";
 import AuthProvider from "../hoc/AuthProvider";
@@ -19,7 +19,7 @@ export const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index path="/" element={<HomePage />} />
-            <Route path="about" element={<AboutPage />} />
+            <Route path="about/*" element={<AboutPage />} />
             <Route path="posts" element={<Blogpage />} />
             <Route path="posts/:id" element={<SinglePostpage />} />
             <Route path="posts/:id/edit" element={<EditPostPage />} />
@@ -40,7 +40,7 @@ export const AppRoutes = () => {
               }
             />
             <Route path="login" element={<Loginpage />} />
-            <Route path="*" element={<NotfoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </AuthProvider>

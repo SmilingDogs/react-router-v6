@@ -71,3 +71,9 @@ main a:hover {
   color: white;
   border-radius: 6px;
 }
+
+
+
+.post {
+  cursor: pointer;
+}

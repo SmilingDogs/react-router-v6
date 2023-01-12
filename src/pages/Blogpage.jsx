@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+// import { useState, useEffect } from "react";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
 
-export const Blogpage = () => {
-  const [posts, setPosts] = useState([]);
+export const BlogPage = () => {
+  // const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const posts = useLoaderData();
   const query = searchParams.get("post") || "";
 
   const handleSearch = (e) => {
@@ -19,15 +19,14 @@ export const Blogpage = () => {
     }
   };
 
-  const getPosts = async () => {
-    const res = await fetch(POSTS_URL);
-    const json = await res.json();
-    return setPosts(json);
-  };
+  // const getPosts = async () => {
+    
+    // return setPosts(json);
+  // };
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+  // useEffect(() => {
+  //   getPosts();
+  // }, []);
   //todo all actions are passed INSIDE a callback in useEffect
 
   const postsList = posts?.filter((p) => p.title.includes(query))
@@ -53,3 +52,9 @@ export const Blogpage = () => {
     </div>
   );
 };
+
+export const blogLoader = async ({request, params}) => {
+  const res = await fetch(POSTS_URL);
+  const json = await res.json();
+  return json
+}

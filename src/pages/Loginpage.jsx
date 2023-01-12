@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 
-export const Loginpage = () => {
+
+export const LoginPage = () => {
   // const navigate = useNavigate();
   // const location = useLocation();
   
-  const { onLogin } = useAuth();
+ 
 
   // const routeBefore = location.state?.from?.pathname || "/";
 
@@ -26,7 +26,7 @@ export const Loginpage = () => {
   return (
     <div>
       <h1>Login Page</h1>
-      <form action="#" onSubmit={onLogin}>
+      <form action="#">
         <label>
           Name: <input type="text" name="username" />
         </label>

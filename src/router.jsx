@@ -11,14 +11,13 @@ import { postLoader, SinglePostpage } from "./pages/SinglePostpage";
 import { EditPostPage } from "./pages/EditPostpage";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import { CreatePostPage } from "./pages/CreatePostPage";
-
 import { NotFoundPage } from "./pages/NotFoundpage";
 import { LoginPage } from "./pages/LoginPage";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<HomePage />} />
-      <Route path="about" element={<AboutPage />} />
+      <Route path="about/*" element={<AboutPage />} />
       <Route path="about-us" element={<Navigate to="/about" replace />} />
       <Route path="posts" element={<BlogPage />} loader={blogLoader} />
       <Route path="posts/:id" element={<SinglePostpage />} loader={postLoader} />

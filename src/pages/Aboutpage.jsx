@@ -6,7 +6,7 @@ export const AboutPage = () => {
     <div>
         
         <h1>About us</h1>
-        <p>This is demo site's About Us page</p>
+        <p>This is demo site About Us page</p>
         <Link to="/admin">For admins</Link>
         <ul>
           <li><Link to='contacts'>Contacts</Link></li>

@@ -3,14 +3,14 @@ import { useAuth } from "../hooks/useAuth";
 
 const ProtectedRoute = ({ children }) => {
 
-    const {token} = useAuth();
-    console.log(token);
-    const location = useLocation();
+  const location = useLocation();
+  const {user} = useAuth();
+  console.log(user);
     
-    if (!token) {
-      return <Navigate to="/login" replace state={{ from: location }} />;
+    if (!user) {
+      return <Navigate to="/login" state={{ from: location }} />;
     }
-    //*  if no token => show component <Navigate /> with attributes
+    //*  if no token(user) => show component <Navigate /> with attributes
     //* otherwise => show child component(wrapped by this);
     return children;
   };

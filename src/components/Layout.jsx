@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { CustomLink } from "./CustomLink";
+import { UserTag } from "./UserTag";
 
 const setActive = ({ isActive }) => (isActive ? "active-link" : "");
 //* we can now pass callback functions into props (here into className)
@@ -43,6 +44,7 @@ export const Layout = () => {
         >
           Login
         </CustomLink>
+        <UserTag />
       </header>
       <main className="container">
         <Outlet />

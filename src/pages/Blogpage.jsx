@@ -1,12 +1,19 @@
 // import { useState, useEffect } from "react";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { Suspense } from "react";
+import {
+  Link,
+  useLoaderData,
+  useSearchParams,
+  defer,
+  Await,
+} from "react-router-dom";
 
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
 
 export const BlogPage = () => {
   // const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const posts = useLoaderData();
+  const { posts } = useLoaderData();
   const query = searchParams.get("post") || "";
 
   const handleSearch = (e) => {
@@ -20,8 +27,8 @@ export const BlogPage = () => {
   };
 
   // const getPosts = async () => {
-    
-    // return setPosts(json);
+
+  // return setPosts(json);
   // };
 
   // useEffect(() => {
@@ -29,16 +36,9 @@ export const BlogPage = () => {
   // }, []);
   //todo all actions are passed INSIDE a callback in useEffect
 
-  const postsList = posts?.filter((p) => p.title.includes(query))
-    .map((p) => (
-      <Link key={p.id} to={`/posts/${p.id}`}>
-        <li>{p.title}</li>
-      </Link>
-    ));
-
   return (
     <div>
-      <h1>Blog</h1>
+      <h1>Blogers</h1>
       <label>
         Type to search:{" "}
         <input type="text" value={query} onChange={handleSearch} />
@@ -48,13 +48,33 @@ export const BlogPage = () => {
           Add new post
         </Link>
       </div>
-      <ul>{postsList}</ul>
+      <Suspense fallback={<h2 style={{ color: "red" }}>Loading posts...</h2>}>
+        <Await resolve={posts}>
+          {(resolvedPosts) => (
+            <ul>
+              { resolvedPosts?.filter((p) => p.title.includes(query))
+                .map((p) => (
+                  <Link key={p.id} to={`/posts/${p.id}`}>
+                    <li>{p.title}</li>
+                  </Link>
+                ))
+              }
+            </ul>
+          )}
+        </Await>
+      </Suspense>
     </div>
   );
 };
 
-export const blogLoader = async ({request, params}) => {
+const getPosts = async () => {
   const res = await fetch(POSTS_URL);
   const json = await res.json();
-  return json
-}
+  return json;
+};
+
+export const blogLoader = async () => {
+  return defer({
+    posts: getPosts(),
+  });
+};
